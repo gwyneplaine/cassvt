@@ -10,5 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "flow-bin": "^0.75.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.0.1",
+    "flow-remove-types": "^1.2.3"
   }
 }

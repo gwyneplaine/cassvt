@@ -7,7 +7,7 @@
 
 type ExpressionList = Array<Expression>;
 type Expression = {
-  firstArg: string | number
+  firstArg: string | number,
   secondArg: string | number,
   operator: string,
 }
@@ -40,7 +40,7 @@ function parseCells(cells: Array): Array<{ ref: string, contents: ExpressionList
   return cells.map((cell) => parseCell(cell, cells));
 }
 
-function parseCell(cell, cells) => (cell) => {
+const parseCell = (cell, cells) => (cell) => {
   const result = 0;
   const argumentStack = [];
   cell.contents.forEach((el) => {
@@ -51,9 +51,13 @@ function parseCell(cell, cells) => (cell) => {
       const secondArg = argumentStack.pop();
       argumentStack.push(resolveExpression(firstArg, secondArg, operator, cellRef, cells));
     }
-  }
-  if (argumentStack.find(i => i === 'ERR')) return 'ERR';
-  return result;
+  });
+
+	if (argumentStack.find(i => i === 'ERR')) {
+		return 'ERR';
+	} else {
+		return result;
+	}
 }
 
 function resolveRef(ref) {
